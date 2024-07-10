@@ -1,52 +1,30 @@
-class RestaurantQueue:
-    def init(self):
+class Queue:
+    def _init_(self):
         self.queue = []
 
-    def enqueue(self, order):
-        self.queue.append(order)
-        print(f"Order '{order}' Telah Ditambahkan Kedalam Pesanan.")
+    def enqueue(self, item):
+        self.queue.append(item)
 
     def dequeue(self):
-        if len(self.queue) > 0:
-            order = self.queue.pop(0)
-            print(f"Order '{order}' Telah Dihilangkan Dari Pesanan.")
-            return order
+        if not self.is_empty():
+            return self.queue.pop(0)
         else:
-            print("Pesanan Anda Kosong, Tidak Ada Pesanan Untuk Dihapus.")
             return None
 
-    def displayqueue(self):
-        if len(self.queue) > 0:
-            print("Pesanan Anda Sekarang:")
-            for i, order in enumerate(self.queue, 1):
-                print(f"{i}. {order}")
+    def remove_at(self, index):
+        if 0 <= index < len(self.queue):
+            return self.queue.pop(index)
         else:
-            print("Pesanan Anda Kosong.")
+            return None
 
-def main():
-    restaurantqueue = RestaurantQueue()
-
-    while True:
-        print("\nMenu:")
-        print("1. Tambahkan Pesanan")
-        print("2. Hapus Pesanan")
-        print("3. Tampilkan Pesanan Saat Ini")
-        print("4. Keluar")
-
-        choice = input("Masukan Pilihan (1-4): ")
-
-        if choice == '1':
-            order = input("Masukan Pesanan Untuk Ditambahkan: ")
-            restaurantqueue.enqueue(order)
-        elif choice == '2':
-            restaurantqueue.dequeue()
-        elif choice == '3':
-            restaurantqueue.display_queue()
-        elif choice == '4':
-            print("Keluar dari program.")
-            break
+    def head(self):
+        if not self.is_empty():
+            return self.queue[0]
         else:
-            print("Pilihan anda salah, Tolong pilih antara 1 sampai 4.")
+            return None 
 
-if __name__ == "__main":
-    main()
+    def display(self):
+        print("Queue:", self.queue)
+
+    def is_empty(self):
+        return len(self.queue) ==0
